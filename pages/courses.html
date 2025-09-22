@@ -1,0 +1,195 @@
+<title>About Course</title>
+
+<style>
+    .courses-section {
+        padding: 3rem 2rem;
+        background-color: #f7f9fc;
+        color: #1a2a4a;
+        max-width: 900px;
+        margin: auto;
+    }
+
+    .courses-section h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 2.2rem;
+    }
+
+    .filter-buttons {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .filter-buttons button {
+        background-color: #ffd369;
+        color: #1a2a4a;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        margin: 0 0.4rem;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .filter-buttons button:hover,
+    .filter-buttons button.active {
+        background-color: #e6c74f;
+    }
+
+    .courses-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .course-card {
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .course-card:hover {
+        box-shadow: 0 8px 16px rgba(235, 5, 5, 0.15);
+    }
+
+    .course-card h3 {
+        margin-bottom: 0.5rem;
+        color: #1a2a4a;
+    }
+
+    .course-card p {
+        margin-bottom: 0.6rem;
+        color: #333;
+    }
+</style>
+
+
+
+
+
+<section id="courses" class="courses-section">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <a href="../index.html" style="text-decoration: none;">
+            <button
+                style="background-color: #1a2a4a; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 6px; cursor: pointer; font-weight: 600; transition: background-color 0.3s ease;">
+                ← Back to Home
+            </button>
+        </a>
+        <h2 style="margin: 0;">Explore Courses After +2 in Nepal</h2>
+    </div>
+
+    <div class="filter-buttons">
+        <button onclick="filterCourses('all', event)" class="active">All</button>
+        <button onclick="filterCourses('science', event)">Science</button>
+        <button onclick="filterCourses('management', event)">Management</button>
+        <button onclick="filterCourses('humanities', event)">Humanities</button>
+        <button onclick="filterCourses('education', event)">Education</button>
+    </div>
+
+    <div id="courses-list" class="courses-list">
+
+        <div class="course-card" data-stream="science">
+            <h3>Bachelor of Computer Application (BCA)</h3>
+            <p><strong>Duration:</strong> 4 years</p>
+            <p>Learn programming, software development, and IT skills. Suitable for students interested in computers
+                and technology.</p>
+            <p><strong>Careers:</strong> Software Developer, IT Officer, Web Designer</p>
+        </div>
+
+        <div class="course-card" data-stream="science">
+            <h3>Bachelor of Science (BSc) - Physics/Chemistry/Biology</h3>
+            <p><strong>Duration:</strong> 3 years</p>
+            <p>Focus on natural sciences with specializations in physics, chemistry, or biology.</p>
+            <p><strong>Careers:</strong> Researcher, Lab Technician, Lecturer</p>
+        </div>
+
+        <div class="course-card" data-stream="management">
+            <h3>Bachelor of Business Studies (BBS)</h3>
+            <p><strong>Duration:</strong> 4 years</p>
+            <p>Learn business, finance, accounting, and management principles.</p>
+            <p><strong>Careers:</strong> Accountant, Banker, Business Manager</p>
+        </div>
+
+        <div class="course-card" data-stream="management">
+            <h3>Bachelor of Business Administration (BBA)</h3>
+            <p><strong>Duration:</strong> 4 years</p>
+            <p>Focus on leadership, entrepreneurship, and business strategy.</p>
+            <p><strong>Careers:</strong> Manager, Entrepreneur, Marketing Executive</p>
+        </div>
+
+        <div class="course-card" data-stream="humanities">
+            <h3>Bachelor of Arts (BA)</h3>
+            <p><strong>Duration:</strong> 3 years</p>
+            <p>Subjects include Sociology, Political Science, History, Geography, etc.</p>
+            <p><strong>Careers:</strong> Journalist, Social Worker, Teacher</p>
+        </div>
+
+        <div class="course-card" data-stream="education">
+            <h3>Bachelor of Education (BEd)</h3>
+            <p><strong>Duration:</strong> 3 years</p>
+            <p>Prepare to become a professional teacher at schools.</p>
+            <p><strong>Careers:</strong> School Teacher, Counselor, Trainer</p>
+        </div>
+
+        <!-- Add more courses as needed -->
+
+        <div class="course-card" data-stream="science">
+            <h3>Bachelor of Science in Information Technology (BScIT)</h3>
+            <p><strong>Duration:</strong> 4 years</p>
+            <p>Comprehensive study of IT fundamentals, programming, networking, and system analysis.</p>
+            <p><strong>Careers:</strong> Software Developer, Network Administrator, IT Consultant</p>
+        </div>
+
+        <div class="course-card" data-stream="management">
+            <h3>Master of Business Administration (MBA)</h3>
+            <p><strong>Duration:</strong> 2 years</p>
+            <p>Advanced business management, leadership, finance, and marketing skills.</p>
+            <p><strong>Careers:</strong> Business Manager, Marketing Director, Entrepreneur</p>
+        </div>
+
+        <div class="course-card" data-stream="science">
+            <h3>Bachelor of Science in Computer and Information Technology (BSCCIT)</h3>
+            <p><strong>Duration:</strong> 4 years</p>
+            <p>Focus on computer science, software engineering, and information technology systems.</p>
+            <p><strong>Careers:</strong> Software Engineer, System Analyst, IT Specialist</p>
+        </div>
+
+        <div class="course-card" data-stream="science">
+            <h3>Bachelor of Information Technology (BIT)</h3>
+            <p><strong>Duration:</strong> 4 years</p>
+            <p>Study of IT infrastructure, software development, and database management.</p>
+            <p><strong>Careers:</strong> Database Administrator, IT Manager, Software Developer</p>
+        </div>
+
+    </div>
+</section>
+
+
+
+<script>
+    
+
+    function filterCourses(stream, event) {
+        const buttons = document.querySelectorAll('.filter-buttons button');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
+        const courses = document.querySelectorAll('.course-card');
+        courses.forEach(course => {
+            if (stream === 'all' || course.dataset.stream === stream) {
+                course.style.display = 'block';
+            } else {
+                course.style.display = 'none';
+            }
+        });
+    }
+
+    // Initialize with 'all' filter active on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        filterCourses('all');
+    });
+
+</script>

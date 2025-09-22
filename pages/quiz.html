@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PathFinder Quiz</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+  .quiz-container {
+    background: white;
+    max-width: 600px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 2rem;
+    animation: fadeIn 1s ease forwards;
+  }
+  h2 {
+    color: #1a2a4a;
+    margin-bottom: 1rem;
+  }
+  .question {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .options {
+    list-style: none;
+    padding: 0;
+  }
+  .options li {
+    background: #ffd369;
+    margin-bottom: 0.8rem;
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #1a2a4a;
+    transition: background-color 0.3s ease;
+  }
+  .options li:hover {
+    background-color: #e6c74f;
+  }
+  .options li.selected {
+    background-color: #1a2a4a;
+    color: white;
+  }
+  .next-btn {
+    margin-top: 1.5rem;
+    background-color: #1a2a4a;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.6rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .next-btn.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .result {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a2a4a;
+    margin-top: 2rem;
+    text-align: center;
+  }
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+</style>
+</head>
+<body>
+  <div class="quiz-container" role="main" aria-live="polite">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+      <a href="../index.html" style="text-decoration: none;">
+        <button style="background-color: #1a2a4a; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: 600; transition: background-color 0.3s ease;">
+          ← Back to Home
+        </button>
+      </a>
+      <h2 style="margin: 0;">Find Your Ideal Course Stream</h2>
+    </div>
+    <div id="quiz-content">
+      <!-- Questions will be injected here -->
+    </div>
+    <button id="next-btn" class="next-btn" aria-label="Next question">Next</button>
+    <div id="result" class="result" aria-live="assertive"></div>
+  </div>
+
+<script>
+// Access control: redirect to login.html if not logged in
+// 
+
+const quizData = [
+  {
+    question: "Which subject do you enjoy the most?",
+    options: ["Mathematics and Science", "Business and Management", "Arts and Social Studies", "Teaching and Education"],
+    stream: ["science", "management", "humanities", "education"]
+  },
+  {
+    question: "What kind of career interests you?",
+    options: ["Software Developer, IT Officer", "Accountant, Business Manager", "Journalist, Social Worker", "School Teacher, Counselor"],
+    stream: ["science", "management", "humanities", "education"]
+  },
+  {
+    question: "How long are you willing to study?",
+    options: ["4 years", "3 years", "2 years"],
+    stream: ["science", "humanities", "education"]
+  },
+  {
+    question: "Do you prefer working with numbers or people?",
+    options: ["Numbers", "People", "Both equally", "Neither"],
+    stream: ["science", "humanities", "management", "education"]
+  },
+  {
+    question: "Which activity do you enjoy the most?",
+    options: ["Conducting experiments", "Managing projects", "Writing and storytelling", "Teaching others"],
+    stream: ["science", "management", "humanities", "education"]
+  },
+  {
+    question: "What is your preferred learning style?",
+    options: ["Hands-on practical", "Theoretical and analytical", "Creative and expressive", "Interactive and collaborative"],
+    stream: ["science", "science", "humanities", "education"]
+  },
+  {
+    question: "Are you interested in technology?",
+      options: ["Yes, very much", "Somewhat", "Not really", "Not at all"],
+      stream: ["science", "management", "humanities", "education"]
+    },
+    {
+      question: "Do you enjoy solving complex problems?",
+      options: ["Yes", "Sometimes", "Rarely", "No"],
+      stream: ["science", "management", "humanities", "education"]
+    },
+    {
+      question: "Which environment do you prefer?",
+      options: ["Laboratory or research", "Office or corporate", "Studio or fieldwork", "Classroom or community"],
+      stream: ["science", "management", "humanities", "education"]
+    },
+    {
+      question: "How do you handle deadlines?",
+      options: ["Plan ahead and meet them", "Work best under pressure", "Sometimes miss deadlines", "Avoid deadlines"],
+      stream: ["management", "management", "humanities", "education"]
+    },
+    {
+      question: "Are you interested in leadership roles?",
+      options: ["Yes", "Maybe", "Not sure", "No"],
+      stream: ["management", "management", "humanities", "education"]
+    },
+    // {
+    //   question: "Do you enjoy reading and writing?",
+    //   options: ["Yes, a lot", "Sometimes", "Rarely", "No"],
+    //   stream: ["humanities", "humanities", "science", "education"]
+    // },
+    // {
+    //   question: "Are you passionate about helping others?",
+    //   options: ["Yes", "Somewhat", "Not really", "No"],
+    //   stream: ["education", "humanities", "management", "science"]
+    // },
+    // {
+    //   question: "Do you prefer working independently or in teams?",
+    //   options: ["Independently", "In teams", "Both", "Depends on task"],
+    //   stream: ["science", "management", "education", "humanities"]
+    // },
+    // {
+    //   question: "Which skill do you want to develop?",
+    //   options: ["Analytical thinking", "Business acumen", "Communication", "Teaching"],
+    //   stream: ["science", "management", "humanities", "education"]
+    // },
+    // {
+    //   question: "Are you interested in research?",
+    //   options: ["Yes", "Maybe", "Not sure", "No"],
+    //   stream: ["science", "humanities", "management", "education"]
+    // },
+    // {
+    //   question: "How do you prefer to learn new skills?",
+    //   options: ["Online courses", "Workshops and seminars", "Reading books", "Hands-on experience"],
+    //   stream: ["science", "management", "humanities", "education"]
+    // },
+    // {
+    //   question: "Do you enjoy public speaking?",
+    //   options: ["Yes", "Sometimes", "Rarely", "No"],
+    //   stream: ["education", "humanities", "management", "science"]
+    // },
+    // {
+    //   question: "Are you interested in entrepreneurship?",
+    //   options: ["Yes", "Maybe", "Not sure", "No"],
+    //   stream: ["management", "management", "humanities", "education"]
+    // },
+    // {
+    //   question: "What motivates you the most?",
+    //   options: ["Solving problems", "Leading teams", "Expressing creativity", "Helping others learn"],
+    //   stream: ["science", "management", "humanities", "education"]
+    // }
+  ];
+
+  let currentQuestion = 0;
+  let userAnswers = [];
+
+  const quizContent = document.getElementById('quiz-content');
+  const nextBtn = document.getElementById('next-btn');
+  const resultDiv = document.getElementById('result');
+
+  function loadQuestion() {
+    resultDiv.textContent = '';
+    nextBtn.classList.remove('visible');
+    const q = quizData[currentQuestion];
+    let html = '<div class="question">' + q.question + '</div><ul class="options" role="list">';
+    q.options.forEach((option, index) => {
+      html += '<li tabindex="0" role="button" aria-pressed="false" data-index="' + index + '">' + option + '</li>';
+    });
+    html += '</ul>';
+    quizContent.innerHTML = html;
+
+    const optionElements = document.querySelectorAll('.options li');
+    optionElements.forEach(option => {
+      option.addEventListener('click', selectOption);
+      option.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectOption.call(this, e);
+        }
+      });
+    });
+  }
+
+  function selectOption(e) {
+    const options = document.querySelectorAll('.options li');
+    options.forEach(opt => {
+      opt.classList.remove('selected');
+      opt.setAttribute('aria-pressed', 'false');
+    });
+    this.classList.add('selected');
+    this.setAttribute('aria-pressed', 'true');
+    nextBtn.classList.add('visible');
+  }
+
+  nextBtn.addEventListener('click', () => {
+    const selectedOption = document.querySelector('.options li.selected');
+    if (!selectedOption) return;
+    const answerIndex = parseInt(selectedOption.getAttribute('data-index'));
+    userAnswers.push(quizData[currentQuestion].stream[answerIndex]);
+    currentQuestion++;
+    if (currentQuestion < quizData.length) {
+      loadQuestion();
+    } else {
+      showResult();
+    }
+  });
+
+  function showResult() {
+    const counts = userAnswers.reduce((acc, stream) => {
+      acc[stream] = (acc[stream] || 0) + 1;
+      return acc;
+    }, {});
+    const maxStream = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+    let streamName = '';
+    switch(maxStream) {
+      case 'science': streamName = 'Science'; break;
+      case 'management': streamName = 'Management'; break;
+      case 'humanities': streamName = 'Humanities'; break;
+      case 'education': streamName = 'Education'; break;
+    }
+    quizContent.innerHTML = '';
+    nextBtn.style.display = 'none';
+    resultDiv.textContent = 'Your ideal course stream is: ' + streamName + '. Explore courses in this stream!';
+  }
+
+  // Initialize quiz
+  loadQuestion();
+</script>
+</body>
+</html>

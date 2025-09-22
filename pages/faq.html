@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAQs</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      color: #333;
+    }
+    .container {
+      background: white;
+      width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+      padding: 30px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .faq-item {
+      border-bottom: 1px solid #ddd;
+      padding: 15px 0;
+      cursor: pointer;
+    }
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    .question {
+      font-weight: bold;
+      position: relative;
+      padding-right: 20px;
+    }
+    .question::after {
+      content: '+';
+      position: absolute;
+      right: 0;
+      top: 0;
+      font-size: 20px;
+      line-height: 1;
+      transition: transform 0.3s ease;
+    }
+    .faq-item.active .question::after {
+      content: '-';
+      transform: rotate(180deg);
+    }
+    .answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      margin-top: 8px;
+      color: #555;
+    }
+    .faq-item.active .answer {
+      max-height: 500px; /* large enough to show content */
+    }
+    nav {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      background-color: #2575fc;
+      padding: 8px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    nav a:hover {
+      background-color: #1a5dd9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="../index.html">Home</a>
+    </nav>
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <div class="question">What is the purpose of this website?</div>
+      <div class="answer">This website provides educational courses and quizzes to help you learn effectively.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">How do I register for a course?</div>
+      <div class="answer">You can register by creating an account and then selecting the course you want to enroll in.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">Is there a fee to access the courses?</div>
+      <div class="answer">Some courses are free, while others may require a subscription or one-time payment.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">Can I retake quizzes?</div>
+      <div class="answer">Yes, you can retake quizzes as many times as you want to improve your score.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">How do I reset my password?</div>
+      <div class="answer">Click on the 'Forgot Password' link on the login page and follow the instructions to reset your password.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">Can I access courses on mobile devices?</div>
+      <div class="answer">Yes, the website is responsive and works well on mobile phones and tablets.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">Are the quizzes timed?</div>
+      <div class="answer">Some quizzes may have time limits, which will be indicated before you start the quiz.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">How do I track my course progress?</div>
+      <div class="answer">Your progress is saved automatically and can be viewed in your account dashboard.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">Can I download course materials?</div>
+      <div class="answer">Some courses offer downloadable resources; check the course details for availability.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">What payment methods are accepted?</div>
+      <div class="answer">We accept major credit cards, debit cards, and PayPal for paid courses.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">Is there a certificate after course completion?</div>
+      <div class="answer">Yes, you will receive a certificate upon successfully completing a course.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">How can I contact support?</div>
+      <div class="answer">Use the contact form on the Contacts page or email support@pathfinder.com for assistance.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">Can I suggest new courses?</div>
+      <div class="answer">Yes, we welcome course suggestions via the contact form or support email.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">Are there any prerequisites for courses?</div>
+      <div class="answer">Prerequisites, if any, are listed in the course description.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">How often is new content added?</div>
+      <div class="answer">We regularly update the platform with new courses and quizzes to keep content fresh.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">Can I share my account with others?</div>
+      <div class="answer">No, sharing accounts is against our terms of service and may result in account suspension.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">What if I forget my login email?</div>
+      <div class="answer">Contact support with your details, and we will help you recover your account.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">Is my personal information secure?</div>
+      <div class="answer">Yes, we use industry-standard security measures to protect your data.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">Can I cancel my subscription?</div>
+      <div class="answer">Yes, you can cancel your subscription anytime from your account settings.</div>
+    </div>
+    <div class="faq-item">
+      <div class="question">Do you offer group discounts?</div>
+      <div class="answer">Yes, please contact our sales team for information on group pricing.</div>
+    </div>
+  </div>
+  <script>
+// Access control: redirect to login.html if not logged in
+//
+
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>

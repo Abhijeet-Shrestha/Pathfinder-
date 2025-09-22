@@ -1,0 +1,224 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login & Signup</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(120deg, #7e8181, #d7dade, #1b1b1b, #d7dade, #cdd9e7, #1b1b1b, #d7dade, #cdd9e7);
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .container {
+      background: white;
+      padding: 40px 30px;
+      width: 360px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .container:hover{
+      box-shadow: 0 20px 40px rgb(234, 235, 236);
+
+       /* 2px 0 0 rgb(225, 112, 112),     Right */
+    /* -2px 0 0 rgb(71, 71, 215),/    Left */
+    /* 0 2px 0 rgb(50, 117, 165),    Bottom */
+    /* 0 -2px 0 rgb(131, 54, 226);; */
+
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 16px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #66a6ff;
+      outline: none;
+      box-shadow: 0 0 5px #66a6ff80;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #66a6ff;
+      border: none;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #5b9fff;
+      transform: scale(1.05);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .toggle-link {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .toggle-link a {
+      color: #007bff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-bottom: 10px;
+    }
+
+    /* Slide animation */
+    form {
+      animation: slideFade 0.5s ease;
+    }
+
+    @keyframes slideFade {
+      from {
+        transform: translateX(30px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2 id="form-title">Login</h2>
+
+    <form id="loginForm" action="index.html">
+      <input type="email" id="loginEmail" placeholder="Email" required />
+      <input type="password" id="loginPassword" placeholder="Password" required />
+      <div class="error" id="loginError"></div>
+      <button type="submit">Login</button>
+    </form>
+
+    <form id="signupForm" style="display: none;" action="index.html">
+      <input type="text" id="signupUsername" placeholder="Username" required />
+      <input type="email" id="signupEmail" placeholder="Email" required />
+      <input type="password" id="signupPassword" placeholder="Password" required />
+      <input type="password" id="signupConfirm" placeholder="Confirm Password" required />
+      <div class="error" id="signupError"></div>
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <div class="toggle-link">
+      <span id="toggleText">Don't have an account? <a onclick="toggleForm()">Sign Up</a></span>
+    </div>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+    const formTitle = document.getElementById("form-title");
+    const toggleText = document.getElementById("toggleText");
+
+    function toggleForm() {
+      const isLogin = loginForm.style.display !== "none";
+      loginForm.style.display = isLogin ? "none" : "block";
+      signupForm.style.display = isLogin ? "block" : "none";
+      formTitle.textContent = isLogin ? "Sign Up" : "Login";
+      toggleText.innerHTML = isLogin
+        ? `Already have an account? <a onclick="toggleForm()">Login</a>`
+        : `Don't have an account? <a onclick="toggleForm()">Sign Up</a>`;
+    }
+
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      const errorDiv = document.getElementById("loginError");
+
+      if (!email || !password) {
+        errorDiv.textContent = "Please enter both fields.";
+      } else {
+        errorDiv.textContent = "";
+        // Save user email to localStorage on login success
+        localStorage.setItem("userEmail", email);
+        loginForm.reset();
+        window.location.href = "index.html";
+
+      }
+    });
+
+    signupForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const username = document.getElementById("signupUsername").value;
+      const email = document.getElementById("signupEmail").value;
+      const password = document.getElementById("signupPassword").value;
+      const confirm = document.getElementById("signupConfirm").value;
+      const errorDiv = document.getElementById("signupError");
+
+      if (!username || !email || !password || !confirm) {
+        errorDiv.textContent = "All fields are required.";
+      } else if (!email.includes("@")) {
+        errorDiv.textContent = "Invalid email format.";
+      } else if (password.length < 6) {
+        errorDiv.textContent = "Password must be at least 6 characters.";
+      } else if (password !== confirm) {
+        errorDiv.textContent = "Passwords do not match.";
+      } else {
+        errorDiv.textContent = "";
+        // Save username to localStorage on signup success
+        localStorage.setItem("username", username);
+        signupForm.reset();
+        toggleForm();
+        window.location.href = "index.html"; // <-- redirect manually
+      }
+    });
+  </script>
+</body>
+
+</html> -->

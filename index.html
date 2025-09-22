@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PathFinder</title>
+
+
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            display: block;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background-color: white;
+            /* or whatever your navbar color is */
+        }
+
+
+        /* Navbar container */
+        .navbar {
+            background-color: #1a2a4a;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            position: sticky;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Navbar inner container for flex layout */
+        .navbar-container {
+
+            max-width: 1250px;
+            height: 70px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            margin-top: 10px;
+        }
+
+        /* Logo or brand */
+        .navbar-logo {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            user-select: none;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Nav menu */
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        /* Nav links */
+        .nav-menu li a {
+            color: #ddd;
+
+            text-decoration: none;
+            font-size: 1.5rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        /* Hover underline animation */
+        .nav-menu li a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #00bcd4;
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-menu li a:hover,
+        .nav-menu li a:focus {
+            color: #00bcd4;
+        }
+
+        .nav-menu li a:hover::after,
+        .nav-menu li a:focus::after {
+            width: 100%;
+        }
+
+        /* Hamburger menu for mobile */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 60px;
+                right: -100%;
+                background-color: #333;
+                height: calc(100% - 60px);
+                width: 200px;
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+                transition: right 0.3s ease;
+                box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        /* Animate hamburger to X when active */
+        .hamburger.active div:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+
+
+
+        .hero-section {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            background: #f7f9fc;
+            padding: 4rem 2rem;
+            gap: 2rem;
+        }
+
+        .hero-content {
+            max-width: 500px;
+        }
+
+        .hero-content h1 {
+            color: #1a2a4a;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #333333;
+        }
+
+        .hero-buttons button {
+            background-color: #ffd369;
+            color: #1a2a4a;
+            border: none;
+            padding: 0.8rem 1.6rem;
+            margin-right: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero-buttons button:hover {
+            background-color: #e6c74f;
+        }
+
+        .hero-image img {
+            max-width: 450px;
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+             transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+        }
+        .hero-image img:hover
+        {
+         transform: translateY(-5px);
+        }
+
+
+        /* Benefits Section */
+        .benefits {
+            background-color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .benefits h2 {
+            color: #1a2a4a;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .benefit-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .benefit-card {
+            max-width: 220px;
+            background-color: #f0f4f8;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
+            transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            box-shadow: 0 8px 16px rgba(0, 123, 255, 0.3);
+            background-color: #e6f0ff;
+            transform: translateY(-5px);
+        }
+
+        .benefit-card h3 {
+            margin-bottom: 1rem;
+            color: #1a2a4a;
+        }
+
+        .benefit-card p {
+            color: #555555;
+            font-size: 1rem;
+        }
+
+
+        /* #contain {} */
+
+
+        /* Added styles for contact info box */
+        .contact-info-box {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+            cursor: default;
+        }
+
+        .contact-info-box:hover {
+            box-shadow: 0 8px 16px rgba(182, 204, 228, 0.3);
+            background-color: #e6f0ff;
+            transform: translateY(-5px);
+        }
+
+        #contact-form:hover {
+            box-shadow: 0 8px 16px rgba(21, 119, 224, 0.3);
+            background-color: #165bc2;
+            transform: translateY(-5px);
+        }
+
+        #contact-form {
+            /* border: 1px solid black; */
+
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+
+
+        <div id="top"></div>
+        <nav class="navbar" role="navigation" aria-label="Main Navigation">
+            <div class="navbar-container">
+                <div class="navbar-logo" tabindex="0"><a href="#top" class="logo">PathFinder</a></div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#top" tabindex="0">Home</a></li>
+
+                <li><a href="quiz.html" tabindex="0" id="quiz-link">Quiz</a></li>
+                <li><a href="courses.html" id="courses-link" tabindex="0">Courses</a></li>
+                <li><a href="faq.html" tabindex="0" id="faq-link">FAQs</a></li>
+                <li><a href="#contacts" tabindex="0" onclick="scrollToContact(event)">Contacts</a></li>
+                <!-- <li id="login-link"><a href="login.html" tabindex="0">Login</a></li> -->
+                <li id="user-cover" style="display:none;">
+                    <div id="user-initial" style="
+            width: 45px;
+            height: 45px;
+            background-color: #66a6ff;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            user-select: none;
+            cursor: default;
+        "></div>
+                </li>
+            </ul>
+                <div class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" role="button"
+                    tabindex="0">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </nav>
+
+
+    </header>
+    <section id="hero">
+        <!-- rest of hero content -->
+
+    </section>
+    <!-- ✅ Benefits -->
+    <section id="benefitss">
+
+    </section>
+
+    <section id="courses-section"></section>
+
+    </section>
+
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <h1>Confused after +2? Find Your Perfect Career Path!</h1>
+            <p>PathFinder helps +2 students explore streams, take a quick quiz, and get personalized course
+                recommendations.</p>
+            <div class="hero-buttons">
+                <!-- <button onclick="document.getElementById('streams').scrollIntoView({behavior:'smooth'})">Choose Your
+                    Stream</button> -->
+                <a href="quiz.html">
+
+                    <button onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'})">Start
+                        Quiz</button>
+                </a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img id="slider-img" src="image copy.png" alt="Career Advice" />
+        </div>
+
+    </section>
+
+    <section class="benefits">
+        <h2>Why Use PathFinder?</h2>
+        <div class="benefit-cards">
+            <div class="benefit-card">
+                <h3>🎯 Clear Guidance</h3>
+                <p>Tailored streams and course info just for +2 students.</p>
+            </div>
+            <div class="benefit-card">
+                <h3>🧩 Interactive Quiz</h3>
+                <p>Find courses based on your interests and skills.</p>
+            </div>
+            <div class="benefit-card">
+                <h3>📚 Reliable Info</h3>
+                <p>Detailed course descriptions, career options, and FAQs.</p>
+            </div>
+            <div class="benefit-card">
+                <h3>🤝 Ask Experts</h3>
+                <p>Contact form for personalized questions and advice.</p>
+            </div>
+        </div>
+
+        <section id="contacts"
+            style="background-color: rgba(255, 255, 255, 1); padding: 3rem 2rem; margin-top: 2rem; border-radius: 0; width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); color: rgb(12, 12, 12); box-shadow: 0 8px 16px rgba(0,0,0,0.2);">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Contact Us</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;">
+                <form id="contact-form"
+                    style="flex: 1 1 300px; background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); backdrop-filter: blur(10px);">
+                    <label for="full-name" style="display: block; margin-bottom: 0.5rem;">Full Name</label>
+                    <input type="text" id="full-name" name="full-name" required
+                        style="width: 100%; padding: 0.5rem; border-radius: 6px; border: 2px solid black; margin-bottom: 1rem; " />
+
+                    <label for="email" style="display: block; margin-bottom: 0.5rem;">Email</label>
+                    <input type="email" id="email" name="email" required
+                        style="width: 100%; padding: 0.5rem; height: 50px; border-radius: 6px; border: 2px solid black; margin-bottom: 1rem;" />
+
+                    <label for="subject" style="display: block; margin-bottom: 0.5rem;">Subject</label>
+                    <input type="text" id="subject" name="subject" required
+                        style="width: 100%; padding: 0.5rem; border-radius: 6px; border: 2px solid black; margin-bottom: 1rem;" />
+
+                    <label for="message" style="display: block; margin-bottom: 0.5rem;">Message</label>
+                    <textarea id="message" name="message" rows="5" required
+                        style="width: 100%; padding: 0.5rem; border-radius: 6px; border: 1px solid black ; margin-bottom: 1rem;"></textarea>
+
+                    <button type="submit"
+                        style="width: 100%; padding: 0.75rem; background: #2575fc; border: none; border-radius: 8px; color: rgb(27, 24, 24); font-weight: bold; cursor: pointer; transition: background-color 0.3s ease;">Send
+                        Message</button>
+                </form>
+                <div class="contact-info-box"
+                    style="flex: 1 1 300px; display: flex; flex-direction: column; justify-content: center; gap: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="white" height="24" width="24" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" />
+                        </svg>
+                        <span>123 Career PathFinder, Lalitpur, Nepal</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="white" height="24" width="24" viewBox="0 0 24 24">
+                            <path
+                                d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 20.5 3.5 13.93 3.5 6a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.27 2.67.76 3.88a1 1 0 01-.21 1.11l-2.2 2.2z" />
+                        </svg>
+                        <span>+977 9761780843 / 9828564512</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="white" height="24" width="24" viewBox="0 0 24 24">
+                            <path
+                                d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
+                        <span>support@pathfinder.com</span>
+                    </div>
+                </div>
+            </div>
+            <script>
+                const contactForm = document.getElementById('contact-form');
+                contactForm.addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    alert('Thank you for contacting us! We will get back to you shortly.');
+                    contactForm.reset();
+                });
+
+            </script>
+                <!-- <script>
+                // Redirect user to login page before accessing courses, quiz, or faq if not logged in
+                document.addEventListener('DOMContentLoaded', () => {
+                    function checkLoginAndRedirect(event) {
+                        if (!localStorage.getItem('userEmail')) {
+                            event.preventDefault();
+                            window.location.href = 'login.html';
+                        }
+                    }
+                    const coursesLink = document.getElementById('courses-link');
+                    const quizLink = document.getElementById('quiz-link');
+                    const faqLink = document.getElementById('faq-link');
+
+                    if (coursesLink) coursesLink.addEventListener('click', checkLoginAndRedirect);
+                    if (quizLink) quizLink.addEventListener('click', checkLoginAndRedirect);
+                    if (faqLink) faqLink.addEventListener('click', checkLoginAndRedirect);
+                });
+            </script> -->
+
+
+
+            <script>
+                const hamburger = document.getElementById('hamburger');
+                const navMenu = document.getElementById('nav-menu');
+
+                function toggleMenu() {
+                    const expanded = hamburger.getAttribute('aria-expanded') === 'true' || false;
+                    hamburger.setAttribute('aria-expanded', !expanded);
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                }
+
+                hamburger.addEventListener('click', toggleMenu);
+                hamburger.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleMenu();
+                    }
+                });
+
+                // 🔁 Show/hide sections helper
+                function showOnly(sectionIdToShow) {
+                    const allSections = ['hero', 'benefitss', 'courses-section'];
+                    allSections.forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.style.display = id === sectionIdToShow ? 'block' : 'none';
+                    });
+                }
+
+                function scrollToContact(event) {
+                    event.preventDefault();
+                    const contactSection = document.getElementById('contacts');
+                    if (contactSection) {
+                        contactSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+
+                
+
+
+                function showOnly(sectionIdToShow) {
+                    const allSections = ['hero', 'benefitss', 'courses-section'];
+                    allSections.forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.style.display = id === sectionIdToShow ? 'block' : 'none';
+                    });
+
+                    // ✅ Never hide the navbar/header
+                    const header = document.querySelector('header');
+                    if (header) header.style.display = 'block';
+                }
+
+                
+
+            </script>
+
+            </script>
+</body>
+
+</html>

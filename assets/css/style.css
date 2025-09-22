@@ -1,0 +1,108 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container {
+  background: white;
+  width: 350px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease-in-out;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border 0.3s;
+}
+
+input:focus {
+  border-color: #2575fc;
+  outline: none;
+}
+
+button {
+  padding: 10px;
+  background-color: #2575fc;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #1a5dd9;
+}
+
+.toggle {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.toggle a {
+  color: #2575fc;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+form.hidden {
+  opacity: 0;
+  transform: translateX(100%);
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 100%;
+  transition: all 0.5s;
+}
+
+form.active {
+  opacity: 1;
+  transform: translateX(0);
+  position: relative;
+}
+
+/* Added styles for contact info box */
+.contact-info-box {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+  cursor: default;
+}
+
+.contact-info-box:hover {
+  box-shadow: 0 8px 16px rgba(0, 123, 255, 0.3);
+  background-color: #e6f0ff;
+  transform: translateY(-5px);
+}
