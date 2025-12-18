@@ -64,6 +64,63 @@
         margin-bottom: 0.6rem;
         color: #333;
     }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .courses-section {
+        padding: 2rem 1rem;
+      }
+      .courses-section h2 {
+        font-size: 1.8rem;
+      }
+      .filter-buttons {
+        margin-bottom: 1.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      .filter-buttons button {
+        padding: 0.5rem 0.9rem;
+        margin: 0.25rem;
+        font-size: 0.85rem;
+      }
+      .courses-list {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .courses-section {
+        padding: 1.5rem 1rem;
+      }
+      .courses-section h2 {
+        font-size: 1.3rem;
+      }
+      .filter-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+      }
+      .filter-buttons button {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.75rem;
+      }
+      .courses-list {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .course-card {
+        padding: 1.2rem;
+      }
+      .course-card h3 {
+        font-size: 1rem;
+      }
+      .course-card p {
+        font-size: 0.85rem;
+      }
+    }
 </style>
 
 

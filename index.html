@@ -299,6 +299,92 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
         }
+        
+        /* Additional Responsive Design */
+        @media (max-width: 1024px) {
+            .navbar-container {
+                max-width: 95%;
+            }
+            .hero-section {
+                padding: 3rem 1.5rem;
+                gap: 1.5rem;
+            }
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar-container {
+                height: 60px;
+                padding: 0.5rem;
+            }
+            .navbar-logo {
+                font-size: 1.2rem;
+            }
+            .nav-menu li a {
+                font-size: 1.2rem;
+            }
+            .hero-section {
+                padding: 2rem 1rem;
+                flex-direction: column;
+            }
+            .hero-content {
+                max-width: 100%;
+            }
+            .hero-content h1 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+            .hero-content p {
+                font-size: 1rem;
+            }
+            .hero-image {
+                width: 100%;
+                max-height: 300px;
+            }
+            .hero-image img {
+                width: 100%;
+                height: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .navbar-container {
+                height: 50px;
+                margin-top: 5px;
+            }
+            .navbar-logo {
+                font-size: 1rem;
+                letter-spacing: 1px;
+            }
+            .nav-menu {
+                width: 150px;
+            }
+            .nav-menu li a {
+                font-size: 0.9rem;
+                padding: 0.3rem 0;
+            }
+            .hero-section {
+                padding: 1.5rem 1rem;
+                gap: 1rem;
+            }
+            .hero-content h1 {
+                font-size: 1.4rem;
+                margin-bottom: 0.8rem;
+            }
+            .hero-content p {
+                font-size: 0.85rem;
+                margin-bottom: 1.5rem;
+            }
+            .hero-buttons button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+            }
+            .hero-image {
+                max-height: 200px;
+            }
+        }
     </style>
 </head>
 
@@ -313,9 +399,9 @@
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#top" tabindex="0">Home</a></li>
 
-                <li><a href="quiz.html" tabindex="0" id="quiz-link">Quiz</a></li>
-                <li><a href="courses.html" id="courses-link" tabindex="0">Courses</a></li>
-                <li><a href="faq.html" tabindex="0" id="faq-link">FAQs</a></li>
+                <li><a href="pages/quiz.html" tabindex="0" id="quiz-link">Quiz</a></li>
+                <li><a href="pages/courses.html" id="courses-link" tabindex="0">Courses</a></li>
+                <li><a href="pages/faq.html" tabindex="0" id="faq-link">FAQs</a></li>
                 <li><a href="#contacts" tabindex="0" onclick="scrollToContact(event)">Contacts</a></li>
                 <!-- <li id="login-link"><a href="login.html" tabindex="0">Login</a></li> -->
                 <li id="user-cover" style="display:none;">
@@ -367,7 +453,7 @@
             <div class="hero-buttons">
                 <!-- <button onclick="document.getElementById('streams').scrollIntoView({behavior:'smooth'})">Choose Your
                     Stream</button> -->
-                <a href="quiz.html">
+                <a href="pages/quiz.html">
 
                     <button onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'})">Start
                         Quiz</button>
@@ -375,7 +461,7 @@
             </div>
         </div>
         <div class="hero-image">
-            <img id="slider-img" src="image copy.png" alt="Career Advice" />
+            <img id="slider-img" src="assets/images/image.png" alt="Career Advice" />
         </div>
 
     </section>

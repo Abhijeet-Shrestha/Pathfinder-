@@ -79,6 +79,61 @@
     from {opacity: 0; transform: translateY(20px);}
     to {opacity: 1; transform: translateY(0);}
   }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    body {
+      padding: 1rem;
+    }
+    .quiz-container {
+      padding: 1.5rem;
+      max-width: 100%;
+    }
+    h2 {
+      font-size: 1.3rem;
+    }
+    .question {
+      font-size: 1rem;
+    }
+    .options li {
+      padding: 0.7rem 0.8rem;
+      font-size: 0.95rem;
+    }
+    .next-btn {
+      padding: 0.7rem 1.2rem;
+      font-size: 0.95rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    body {
+      padding: 0.5rem;
+    }
+    .quiz-container {
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    h2 {
+      font-size: 1.1rem;
+    }
+    .question {
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+    .options li {
+      padding: 0.6rem 0.7rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.85rem;
+    }
+    .next-btn {
+      margin-top: 1rem;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+    }
+    .result {
+      font-size: 1.1rem;
+    }
+  }
 </style>
 </head>
 <body>
