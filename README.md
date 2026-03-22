@@ -72,7 +72,5 @@ Notes
  - Some inline styles are present in `index.html` for the navbar/hero/contacts. You can move them to `assets/css/style.css` if you prefer fully external CSS.
  - If you need server-side email (SMTP) instead of EmailJS, add a small backend and point the form submission to it.
 
-License
-MIT
 
 
