@@ -8,7 +8,7 @@ Features
  - Quiz that suggests an ideal course stream
  - Courses page with stream filters
  - FAQs page with expandable items
- - Contact form wired to EmailJS with a mailto fallback
+ - Contact form wired to EmailJS 
 
 Folder Structure
 ```
